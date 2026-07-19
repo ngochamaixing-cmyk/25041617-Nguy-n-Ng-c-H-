@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Ngọc Hà Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Be Vietnam Pro & Pacifico -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Be Vietnam Pro', 'sans-serif'],
+                        cursive: ['Pacifico', 'cursive'],
+                    },
+                    colors: {
+                        dreamPink: {
+                            50: '#FFF0F2',
+                            100: '#FFE1E5',
+                            200: '#FFC4CD',
+                            300: '#FFA0AF',
+                            400: '#FF7388',
+                            500: '#FF4D6A',
+                            600: '#D1354F',
+                        },
+                        dreamPurple: {
+                            50: '#F5F0FF',
+                            100: '#EBDDFF',
+                            200: '#D5BAFF',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out infinite 2s',
+                        'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #FFF0F2 0%, #FFF9FA 50%, #F5F0FF 100%);
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        /* Style matches the glowing neon stars from the sample images */
+        .glowing-star {
+            filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.9));
+            pointer-events: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(6deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 115, 136, 0.6)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 115, 136, 1)); }
+        }
+        .dreamy-glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 196, 205, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.15);
+        }
+        .dreamy-card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .dreamy-card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(255, 115, 136, 0.18);
+            border-color: rgba(255, 115, 136, 0.5);
+        }
+        #sparkle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="text-gray-700 min-h-screen">
+
+    <!-- Sparkle Canvas -->
+    <canvas id="sparkle-canvas"></canvas>
+
+    <!-- Background Star Decor -->
+    <div class="absolute top-16 left-8 w-24 h-24 glowing-star animate-float opacity-80">
+        <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-dreamPink-200"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>
+    </div>
+    <div class="absolute top-1/4 right-8 w-16 h-16 glowing-star animate-float-delayed opacity-70">
+        <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-dreamPurple-200"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-4 z-50 max-w-6xl mx-auto px-4">
+        <div class="dreamy-glass rounded-full px-6 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2">
+                <span class="font-cursive text-2xl text-dreamPink-400 font-bold">Ngọc Hà.</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 font-medium text-xs">
+                <a href="#about" class="hover:text-dreamPink-400 transition-colors">Giới thiệu</a>
+                <a href="#goals" class="hover:text-dreamPink-400 transition-colors">Mục tiêu</a>
+                <a href="#projects" class="hover:text-dreamPink-400 transition-colors">Nhật ký bài tập</a>
+                <a href="#conclusion" class="hover:text-dreamPink-400 transition-colors">Tổng kết</a>
+            </div>
+            <div>
+                <a href="https://drive.google.com/drive/folders/1vepdtcQ1eFhcEjAotrFq5qNEbuusf7Sz?usp=drive_link" target="_blank" class="bg-gradient-to-r from-dreamPink-400 to-pink-300 text-white font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-xs animate-pulse-glow">
+                    <i data-lucide="cloud-lightning" class="w-3.5 h-3.5"></i>
+                    Thư mục bài tập lớn
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bio / Intro -->
+    <section id="about" class="max-w-6xl mx-auto px-4 py-12 md:py-20 grid md:grid-cols-12 gap-12 items-center relative">
+        <div class="md:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 bg-pink-100/60 border border-pink-200/50 text-dreamPink-500 px-4 py-1.5 rounded-full text-xs font-semibold">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-dreamPink-400"></i>
+                Học phần: Nhập môn công nghệ số & ứng dụng AI
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold leading-tight">
+                <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-dreamPink-400 via-pink-400 to-indigo-400 font-bold">Nguyễn Ngọc Hà</span>
+            </h1>
+            <p class="text-base leading-relaxed text-gray-600">
+                Chào mọi người nhé! Mình là <strong class="text-dreamPink-500">Nguyễn Ngọc Hà</strong>, một cô gái cực kỳ yêu văn chương và ngôn ngữ, hiện đang theo học tại Khoa Ngôn ngữ và Văn hóa Trung Quốc, Trường Đại học Ngoại ngữ - ĐHQGHN.
+                Trước đây, mình từng nghĩ công nghệ số là một thế giới xa vời và có phần hơi khô khan. Thế nhưng học phần thú vị này đã giúp mình nhận ra một điều rất đẹp: khi công nghệ hiện đại đồng hành cùng ngôn từ mềm mại, chúng ta có thể tạo nên những sản phẩm truyền cảm hứng ngoài mong đợi của chính bản thân mình.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-4 text-sm">
+                <a href="#projects" class="bg-gradient-to-r from-dreamPink-400 to-pink-300 text-white font-semibold px-6 py-3 rounded-full hover:shadow-lg hover:scale-105 transition-all shadow-sm flex items-center gap-2">
+                    Ghé xem nhật ký bài tập của mình nhé
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="md:col-span-5 flex justify-center">
+            <div class="relative w-80">
+                <div class="absolute -top-6 -left-6 w-12 h-12 text-dreamPink-300 glowing-star"><svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+                <div class="absolute -bottom-6 -right-6 w-16 h-16 text-dreamPurple-200 glowing-star animate-float"><svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+                
+                <div class="dreamy-glass p-5 rounded-3xl space-y-4 border-2 border-white/80 shadow-xl relative z-10">
+                    <div class="aspect-square w-full rounded-2xl overflow-hidden bg-pink-100 border border-pink-100 relative">
+                        <img src="Hình 1.jpg" alt="Nguyễn Ngọc Hà" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-1 text-center">
+                        <h3 class="font-bold text-xl text-gray-800">Nguyễn Ngọc Hà</h3>
+                        <p class="text-dreamPink-400 font-semibold text-xs">MSSV: 25041617</p>
+                        <div class="h-[1px] bg-gradient-to-r from-transparent via-pink-200 to-transparent my-1.5"></div>
+                        <p class="text-[11px] text-gray-500 font-medium">Khoa Ngôn ngữ & Văn hóa Trung Quốc</p>
+                        <p class="text-[10px] text-gray-400">Trường Đại học Ngoại ngữ - ĐHQGHN</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- General Objectives -->
+    <section id="goals" class="max-w-6xl mx-auto px-4 py-8">
+        <div class="dreamy-glass rounded-3xl p-8 border border-dreamPink-200/50 space-y-6">
+            <h3 class="font-bold text-2xl text-gray-800 flex items-center gap-2">
+                <i data-lucide="compass" class="text-dreamPink-400"></i>
+                Mục Tiêu Khi Mình Thiết Lập Portfolio
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div class="bg-white/40 p-5 rounded-2xl border border-pink-100/50 space-y-2">
+                    <h4 class="font-bold text-gray-800 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-dreamPink-400"></span>
+                        Nhìn Lại Chặng Đường Đã Qua
+                    </h4>
+                    <p class="text-gray-500 leading-relaxed text-xs">
+                        Hệ thống hóa toàn bộ các bài viết và sản phẩm của mình suốt học kỳ qua để lưu lại làm kỷ niệm học tập, đồng thời chia sẻ với thầy cô và bạn bè.
+                    </p>
+                </div>
+                <div class="bg-white/40 p-5 rounded-2xl border border-pink-100/50 space-y-2">
+                    <h4 class="font-bold text-gray-800 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-dreamPink-400"></span>
+                        Ứng Dụng Liên Ngành Thú Vị
+                    </h4>
+                    <p class="text-gray-500 leading-relaxed text-xs">
+                        Chuyển ngữ các tài liệu thô, thiết kế kịch bản thoại bằng AI và tự biên tập hình ảnh để hiểu sâu hơn về cách công nghệ thay đổi việc học ngôn ngữ.
+                    </p>
+                </div>
+                <div class="bg-white/40 p-5 rounded-2xl border border-pink-100/50 space-y-2">
+                    <h4 class="font-bold text-gray-800 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-dreamPink-400"></span>
+                        Định Hình Thói Quen Học Lành Mạnh
+                    </h4>
+                    <p class="text-gray-500 leading-relaxed text-xs">
+                        Xây dựng một góc nhìn liêm chính trong học tập, biết cách biến AI thành một người bạn đồng hành hữu ích thay vì biến mình thành một bản sao rập khuôn.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Exercises Section -->
+    <section id="projects" class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+        <div class="text-center max-w-xl mx-auto space-y-2">
+            <span class="font-cursive text-lg text-dreamPink-400">Trải nghiệm qua từng chặng</span>
+            <h2 class="text-2xl md:text-3xl font-bold">Danh Sách 6 Bài Tập Sáng Tạo Cuối Kỳ</h2>
+            <p class="text-gray-500 text-xs">Mỗi bài tập dưới đây đều là kết quả tự tay mình chuẩn bị, tinh chỉnh từ những nét vẽ và dòng chữ thô sơ ban đầu.</p>
+        </div>
+
+        <div class="space-y-20">
+
+            <!-- BÀI 1 -->
+            <div class="grid md:grid-cols-12 gap-8 items-stretch">
+                <div class="md:col-span-5 flex flex-col justify-between dreamy-glass p-8 rounded-3xl border-2 border-white/60 dreamy-card-hover">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-dreamPink-400 font-bold text-lg">01</div>
+                        <h3 class="text-lg font-bold text-gray-800">Bài 1 - Bài tập 1 của mục 1.4: Thao tác cơ bản với tệp tin và thư mục</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">
+                            <strong>Mục tiêu của mình:</strong> Rèn luyện kỹ năng sử dụng máy tính căn bản nhất, học cách sắp xếp thư mục ngăn nắp bằng Windows File Explorer và làm quen với các phím tắt nhanh để quản lý dữ liệu nhanh chóng.
+                        </p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            <strong>Bài học mình nhận ra:</strong> Việc sắp xếp tệp tin gọn gàng giúp mình tiết kiệm được rất nhiều thời gian mỗi khi cần tìm tài liệu ôn thi hay lưu trữ bài viết quan trọng.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-pink-100 mt-6 text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                        Kỹ năng: Windows Explorer, Phím tắt nhanh, Tổ chức sơ đồ cây
+                    </div>
+                </div>
+                <!-- Interactive Folder Stepper -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 border border-pink-100 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-2 text-xs">
+                                <i data-lucide="folder-tree" class="text-dreamPink-400 w-4 h-4"></i>
+                                Sơ Đồ Thư Mục Minh Họa Hành Trình 12 Bước Của Mình
+                            </span>
+                            <span class="text-[10px] bg-pink-100 text-dreamPink-500 px-2 py-0.5 rounded-full font-bold">Thao tác ổ D:\</span>
+                        </div>
+
+                        <!-- Stepper Description -->
+                        <div class="bg-pink-50/50 p-3 rounded-xl border border-pink-100/30 text-xs flex items-start gap-2">
+                            <span class="bg-dreamPink-400 text-white rounded-full w-4.5 h-4.5 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5" id="b1-num">1</span>
+                            <p id="b1-text" class="text-gray-700 leading-relaxed font-medium">Bước 1: Mở File Explorer bằng phím tắt Windows + E hoặc nhấp chuột vào biểu tượng thư mục màu vàng trên màn hình.</p>
+                        </div>
+
+                        <!-- 12 steps visual simulator columns -->
+                        <div class="grid md:grid-cols-12 gap-4 items-stretch">
+                            <!-- Left Column: Visual Screen representation of Step -->
+                            <div class="md:col-span-6 bg-gray-50 rounded-xl p-3 border border-gray-200/40 flex flex-col justify-center items-center text-center space-y-2 min-h-[140px]" id="step-visual-display">
+                                <!-- This is dynamically updated by JS without crash -->
+                            </div>
+
+                            <!-- Right Column: Live Directory Tree diagram -->
+                            <div class="md:col-span-6 bg-gray-50 rounded-xl p-3 border border-gray-200/40 font-mono text-[10px] text-gray-600 space-y-1 min-h-[140px] flex flex-col justify-center">
+                                <div class="flex items-center gap-1 text-gray-800 font-bold"><i data-lucide="hard-drive" class="w-3 h-3 text-dreamPink-400"></i> D:\ (Máy tính của mình)</div>
+                                <div class="pl-3 border-l border-dashed border-gray-300 space-y-1" id="tree-root">
+                                    <!-- Main Root Folder -->
+                                    <div id="tree-folder-main" class="flex items-center gap-1 font-semibold transition-all duration-300 opacity-20"><i data-lucide="folder" class="w-3 h-3 text-dreamPink-300"></i> ThucHanh_NguyenNgocHa</div>
+                                    
+                                    <!-- Sub Elements -->
+                                    <div class="pl-3 border-l border-dashed border-gray-300 space-y-1 hidden" id="tree-sub-elements">
+                                        <div id="tree-file-gc" class="flex items-center gap-1 transition-all duration-300"><i data-lucide="file-text" class="w-3 h-3 text-indigo-300"></i> <span id="tree-file-gc-name">GhiChu.txt</span></div>
+                                        <div id="tree-folder-sub" class="flex items-center gap-1 font-semibold transition-all duration-300 opacity-20"><i data-lucide="folder" class="w-3 h-3 text-dreamPink-300"></i> TaiLieu</div>
+                                        
+                                        <!-- Sub-Sub Elements inside TaiLieu -->
+                                        <div class="pl-3 border-l border-dashed border-gray-300 space-y-1 hidden" id="tree-sub-sub-elements">
+                                            <div id="tree-file-gc-copy" class="flex items-center gap-1 transition-all duration-300"><i data-lucide="file-text" class="w-3 h-3 text-indigo-300"></i> GhiChuQuanTrong.txt (Bản sao lưu)</div>
+                                            <div id="tree-file-dc" class="flex items-center gap-1 transition-all duration-300"><i data-lucide="file-text" class="w-3 h-3 text-indigo-300"></i> DiChuyen.txt</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-100 mt-4">
+                        <button id="b1-prev-btn" onclick="stepB1(-1)" class="text-xs font-bold text-gray-300 flex items-center gap-1 cursor-not-allowed" disabled>
+                            <i data-lucide="chevron-left" class="w-4 h-4"></i> Quay lại
+                        </button>
+                        <span id="b1-indicator" class="text-xs text-gray-500 font-bold">Bước 1 / 12</span>
+                        <button id="b1-next-btn" onclick="stepB1(1)" class="text-xs font-bold text-dreamPink-400 hover:text-dreamPink-500 flex items-center gap-1 cursor-pointer transition-colors">
+                            Tiếp theo <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BÀI 2 -->
+            <div class="grid md:grid-cols-12 gap-8 items-stretch">
+                <!-- Detailed Database Visualizer -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 border border-pink-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-2 text-xs">
+                                <i data-lucide="database" class="text-dreamPink-400 w-4 h-4"></i>
+                                Cách Đánh Giá Độ Tin Cậy Của 10 Tài Liệu Ngôn Ngữ Học
+                            </span>
+                            <span class="text-[10px] text-dreamPink-500 font-bold">5 Tiêu Chí Chi Tiết</span>
+                        </div>
+
+                        <!-- Grid Selector for all 10 sources -->
+                        <div class="grid grid-cols-5 gap-1.5 mb-4">
+                            <button onclick="assessDoc(1)" id="doc-btn-1" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500">Sun 2021</button>
+                            <button onclick="assessDoc(2)" id="doc-btn-2" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Devlin 19</button>
+                            <button onclick="assessDoc(3)" id="doc-btn-3" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Cui 2021</button>
+                            <button onclick="assessDoc(4)" id="doc-btn-4" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Xue 2003</button>
+                            <button onclick="assessDoc(5)" id="doc-btn-5" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Meng 2019</button>
+                            <button onclick="assessDoc(6)" id="doc-btn-6" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">JCL Journal</button>
+                            <button onclick="assessDoc(7)" id="doc-btn-7" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">SCL Journal</button>
+                            <button onclick="assessDoc(8)" id="doc-btn-8" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">ZG Yuwen</button>
+                            <button onclick="assessDoc(9)" id="doc-btn-9" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Sách Ngữ Pháp</button>
+                            <button onclick="assessDoc(10)" id="doc-btn-10" class="p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Wikipedia</button>
+                        </div>
+
+                        <!-- Source Assessment Details Card -->
+                        <div class="bg-pink-50/20 rounded-2xl p-4 border border-pink-100/30 text-xs space-y-2">
+                            <div class="flex justify-between items-center pb-2 border-b border-pink-100/30">
+                                <span id="doc-title" class="font-bold text-gray-800">1. Sun, Z. et al. (2021). ChineseBERT</span>
+                                <span id="doc-rating" class="text-yellow-500 font-bold">★★★★★</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-[11px] text-gray-600">
+                                <div><span class="text-gray-400">Tác giả/Cơ quan:</span> <span id="doc-author" class="font-semibold text-gray-700">Nhóm nghiên cứu AI / arXiv</span></div>
+                                <div><span class="text-gray-400">Phương pháp:</span> <span id="doc-method" class="font-semibold text-gray-700">Thực nghiệm mô hình học sâu</span></div>
+                                <div><span class="text-gray-400">Mức trích dẫn:</span> <span id="doc-citations" class="font-semibold text-gray-700">Cao</span></div>
+                                <div><span class="text-gray-400">Cập nhật:</span> <span id="doc-recency" class="font-semibold text-gray-700">Mới (2021)</span></div>
+                            </div>
+                            <p id="doc-eval" class="text-[11px] text-gray-500 border-t border-dashed border-pink-100/40 pt-2 leading-relaxed">
+                                Đánh giá của mình: Đây là một tài liệu rất đáng tin cậy. Nghiên cứu mang tính đột phá khi giải quyết bài toán ngữ nghĩa bằng cách tích hợp cả thông tin hình dáng chữ và phiên âm Hán ngữ vào máy tính.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-4 text-[10px] text-gray-400 flex items-center justify-between">
+                        <span>Chủ đề chính: Đặc điểm cú pháp và từ vựng tiếng Trung hiện đại</span>
+                        <span>Đã xác minh qua Google Scholar</span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex flex-col justify-between dreamy-glass p-8 rounded-3xl border-2 border-white/60 dreamy-card-hover">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-dreamPink-400 font-bold text-lg">02</div>
+                        <h3 class="text-xl font-bold text-gray-800">Bài 2 - Bài tập 2 của mục 2.4: Tìm kiếm và đánh giá thông tin học thuật</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">
+                            <strong>Mục tiêu của mình:</strong> Tìm hiểu về cấu tạo từ vựng và câu cú trong tiếng Trung hiện đại, học cách dùng Google Scholar để tìm kiếm các bài viết nghiên cứu chất lượng và biết cách phân biệt nguồn tin cậy.
+                        </p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            <strong>Bài học mình nhận ra:</strong> Mình không còn tin tưởng hoàn toàn vào các trang web tự do hay bách khoa toàn thư mở mà đã biết cách tìm đọc các tạp chí lớn có uy tín khoa học lâu năm.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-pink-100 mt-6 text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                        Kỹ năng: Định vị thông tin, Đánh giá độ tin cậy, Tra cứu thư mục khoa học
+                    </div>
+                </div>
+            </div>
+
+            <!-- BÀI 3 -->
+            <div class="grid md:grid-cols-12 gap-8 items-stretch">
+                <div class="md:col-span-5 flex flex-col justify-between dreamy-glass p-8 rounded-3xl border-2 border-white/60 dreamy-card-hover">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-dreamPink-400 font-bold text-lg">03</div>
+                        <h3 class="text-xl font-bold text-gray-800">Bài 3 - Bài tập 2 của mục 3.4: Viết Prompt hiệu quả cho các tác vụ học tập</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">
+                            <strong>Mục tiêu của mình:</strong> Thử nghiệm xem cách viết câu lệnh (Prompt) thay đổi kết quả phản hồi của chatbot như thế nào qua 3 nhiệm vụ học tập thực tế về chủ đề Mạng thần kinh nhân tạo (ANN).
+                        </p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            <strong>Bài học mình nhận ra:</strong> Thiết kế câu lệnh rõ ràng theo công thức <strong>C-R-I-S-P</strong> kết hợp kỹ thuật gợi ý từng bước (Chain-of-Thought) sẽ giúp AI đưa ra câu trả lời gọn gàng, giảm hẳn lỗi thông tin sai lệch.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-pink-100 mt-6 text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                        Kỹ năng: Công thức CRISP, Thiết kế câu lệnh, Tương tác cùng AI
+                    </div>
+                </div>
+                <!-- Side-by-Side Prompt Comparison Sandbox -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 border border-pink-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-2 text-xs">
+                                <i data-lucide="split" class="text-dreamPink-400 w-4 h-4"></i>
+                                Hộp Cát So Sánh Prompt Song Song (Cơ bản vs Nâng cao)
+                            </span>
+                            <span class="text-[10px] bg-pink-100 text-dreamPink-500 px-2 py-0.5 rounded-full font-bold">Chủ đề: ANN</span>
+                        </div>
+
+                        <!-- Selector for Task -->
+                        <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+                            <button onclick="selectT3Task(1)" id="t3-task-1" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500">Tác vụ 1: Tóm tắt</button>
+                            <button onclick="selectT3Task(2)" id="t3-task-2" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Tác vụ 2: Giải thích</button>
+                            <button onclick="selectT3Task(3)" id="t3-task-3" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Tác vụ 3: Tạo câu hỏi</button>
+                        </div>
+
+                        <!-- Side-by-Side Compare Panels -->
+                        <div class="grid md:grid-cols-2 gap-4 text-[10px] leading-relaxed">
+                            <!-- Left panel: Basic -->
+                            <div class="bg-red-50/40 p-3 rounded-2xl border border-red-100 flex flex-col justify-between space-y-2">
+                                <div>
+                                    <span class="text-red-500 font-bold block mb-1">Dạng Cơ bản (Khá ngắn và rập khuôn)</span>
+                                    <p id="t3-basic-prompt" class="italic bg-white p-2 rounded-lg border border-red-50/50 mb-2">"Tóm tắt bài đọc sau đây về Mạng thần kinh nhân tạo: [Dán đoạn văn]"</p>
+                                    <p id="t3-basic-response" class="bg-white p-2 rounded-lg text-gray-600">Đoạn văn ngắn 3 câu, chung chung, dễ bỏ sót số liệu hoặc ứng dụng cụ thể trong văn bản gốc.</p>
+                                </div>
+                                <div class="text-red-400 font-medium text-[9px] border-t border-red-100 pt-1.5">Mẹo: Thêm chi tiết ngữ cảnh để kết quả tốt hơn.</div>
+                            </div>
+                            <!-- Right panel: Advanced -->
+                            <div class="bg-emerald-50/30 p-3 rounded-2xl border border-emerald-100 flex flex-col justify-between space-y-2">
+                                <div>
+                                    <span class="text-emerald-600 font-bold block mb-1">Dạng Nâng cao (Tối ưu nhất)</span>
+                                    <p id="t3-adv-prompt" class="italic bg-white p-2 rounded-lg border border-emerald-50/50 mb-2">"Bạn là một giáo sư ngành Khoa học máy tính... Hãy tóm tắt theo các bước..."</p>
+                                    <p id="t3-adv-response" class="bg-white p-2 rounded-lg text-gray-600">Hiển thị rõ quá trình tư duy (Xác định thuật ngữ -> Trích xuất luận cứ) trước khi đưa ra bản tóm tắt hoàn hảo.</p>
+                                </div>
+                                <div class="text-emerald-600 font-medium text-[9px] border-t border-emerald-100 pt-1.5">Ưu điểm: Cực kỳ sâu sắc và giữ nguyên bối cảnh học thuật.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-4 text-[10px] text-gray-400 flex items-center justify-between">
+                        <span>Lý thuyết: Gợi ý chuỗi tư duy, Tối ưu hóa điều kiện đầu ra</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BÀI 4 -->
+            <div class="grid md:grid-cols-12 gap-8 items-stretch">
+                <!-- Chronological Collaboration Process visual -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 border border-pink-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-2 text-xs">
+                                <i data-lucide="milestone" class="text-dreamPink-400 w-4 h-4"></i>
+                                Nhìn Lại Tiến Trình Làm Việc Nhóm 3 (Chỉnh Sửa Gen Bằng AI)
+                            </span>
+                            <span class="text-[10px] bg-indigo-50 text-indigo-500 px-2 py-0.5 rounded-full font-bold">Dòng thời gian</span>
+                        </div>
+
+                        <!-- Chronological Vertical Timeline Step Visualizer -->
+                        <div class="space-y-4">
+                            <!-- Step 1 -->
+                            <div class="flex gap-3 items-start relative pb-3 border-l-2 border-pink-100 pl-4 ml-2">
+                                <span class="absolute -left-[9px] top-1 w-4.5 h-4.5 bg-dreamPink-400 text-white font-bold rounded-full flex items-center justify-center text-[9px]">1</span>
+                                <div class="space-y-1">
+                                    <h4 class="text-[11px] font-bold text-gray-800">Thảo Luận Gặp Gỡ Lần Đầu (Ngày 01/06/2026)</h4>
+                                    <p class="text-[10px] text-gray-500 leading-relaxed">
+                                        Cả nhóm gồm 6 thành viên (Châu Hà, Ngọc Hà, Thảo Vy, Thu Hằng, Vũ Mai Ngọc) gặp nhau trên Google Meet để chọn đề tài trung kỳ: 'Thiết kế video về chủ đề Chỉnh sửa gen bằng AI'. Nhóm thống nhất và thiết lập bảng phân chia công việc rõ ràng trên Monday.com.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Step 2 -->
+                            <div class="flex gap-3 items-start relative pb-3 border-l-2 border-pink-100 pl-4 ml-2">
+                                <span class="absolute -left-[9px] top-1 w-4.5 h-4.5 bg-dreamPink-400 text-white font-bold rounded-full flex items-center justify-center text-[9px]">2</span>
+                                <div class="space-y-1">
+                                    <h4 class="text-[11px] font-bold text-gray-800">Đồng Biên Soạn Nội Dung (05/06 - 10/06)</h4>
+                                    <p class="text-[10px] text-gray-500 leading-relaxed">
+                                        Sử dụng Google Docs để soạn thảo kịch bản thoại. Mình đã tự tay chuẩn bị kịch bản thuyết trình chi tiết và thiết kế phần slide giới thiệu của dự án nhóm.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Step 3 -->
+                            <div class="flex gap-3 items-start relative pb-3 border-l-2 border-pink-100 pl-4 ml-2">
+                                <span class="absolute -left-[9px] top-1 w-4.5 h-4.5 bg-dreamPink-400 text-white font-bold rounded-full flex items-center justify-center text-[9px]">3</span>
+                                <div class="space-y-1">
+                                    <h4 class="text-[11px] font-bold text-gray-800">Biên Tập & Đồng Bộ Tài Nguyên (10/06 - 13/06)</h4>
+                                    <p class="text-[10px] text-gray-500 leading-relaxed">
+                                        Mọi người cùng nhau đưa các tệp tin video biên tập thô lên Google Drive chung như <code>cuoiiiiiiiiiiiiii.mp4</code> (133.6 MB) hay <code>thuyete 1.mp4</code> (251.4 MB) để lưu trữ tài nguyên gọn gàng.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Step 4 -->
+                            <div class="flex gap-3 items-start relative pl-4 ml-2">
+                                <span class="absolute -left-[9px] top-1 w-4.5 h-4.5 bg-dreamPink-400 text-white font-bold rounded-full flex items-center justify-center text-[9px]">4</span>
+                                <div class="space-y-1">
+                                    <h4 class="text-[11px] font-bold text-gray-800">Kiểm Tra Lần Cuối (Ngày 14/06/2026)</h4>
+                                    <p class="text-[10px] text-gray-500 leading-relaxed">
+                                        Họp Google Meet lần cuối để duyệt lại video hoàn chỉnh, kiểm soát chính tả phụ đề và tổng kết phần báo cáo kỹ thuật trước khi gửi sản phẩm học tập.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-4 text-[10px] text-gray-400 flex justify-between items-center">
+                        <span>Hệ thống: Monday.com, Google Docs, Drive, Meet</span>
+                        <span>Nhóm 3 - Trải nghiệm đáng nhớ</span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex flex-col justify-between dreamy-glass p-8 rounded-3xl border-2 border-white/60 dreamy-card-hover">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-dreamPink-400 font-bold text-lg">04</div>
+                        <h3 class="text-xl font-bold text-gray-800">Bài 4 - Bài tập 3 của mục 4.4: Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">
+                            <strong>Mục tiêu của mình:</strong> Trải nghiệm cách làm việc và hợp tác cùng các thành viên khác từ xa thông qua việc sử dụng Monday.com, Google Docs, Google Drive và Google Meet cho bài thuyết trình trung kỳ Chỉnh sửa gen bằng AI.
+                        </p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            <strong>Bài học mình nhận ra:</strong> Quản lý lưu trữ trực tuyến giúp cả nhóm trao đổi công việc vô cùng nhanh chóng. Dẫu vậy, nếu không có sự quy hoạch thư mục Drive cẩn thận từ đầu, tệp tin rất dễ bị lộn xộn.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-pink-100 mt-6 text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                        Kỹ năng: Làm việc nhóm từ xa, Quản lý tiến trình, Lưu trữ tài nguyên chung
+                    </div>
+                </div>
+            </div>
+
+            <!-- BÀI 5 -->
+            <div class="grid md:grid-cols-12 gap-8 items-stretch">
+                <div class="md:col-span-5 flex flex-col justify-between dreamy-glass p-8 rounded-3xl border-2 border-white/60 dreamy-card-hover">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-dreamPink-400 font-bold text-lg">05</div>
+                        <h3 class="text-xl font-bold text-gray-800">Bài 5 - Bài tập 2 của mục 5.4: Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">
+                            <strong>Mục tiêu của mình:</strong> Học cách phối hợp cùng Google Gemini, DALL-E 3 và Canva AI để tự thiết kế một tấm Infographic hoàn chỉnh về đề tài môi trường sinh thái: "Rác thải nhựa Đại dương".
+                        </p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            <strong>Bài học mình nhận ra:</strong> AI là một người trợ lý tuyệt vời giúp mình phác thảo ý tưởng nhanh chóng. Thế nhưng, gu thẩm mỹ cá nhân và tinh thần rà soát thông tin tỉ mỉ của con người mới là yếu tố tạo nên giá trị cuối cùng.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-pink-100 mt-6 text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                        Kỹ năng: Ứng dụng chuỗi AI, Sắp xếp bố cục, Đối chiếu dữ liệu, Chỉnh sửa thủ công
+                    </div>
+                </div>
+                <!-- Doubled Detail Multimedia Design Process Visual -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 border border-pink-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-1.5 text-xs">
+                                <i data-lucide="brush" class="text-dreamPink-400 w-4 h-4"></i>
+                                Quy Trình Chi Tiết Mình Tự Thiết Kế Infographic
+                            </span>
+                            <span class="text-[10px] bg-pink-100 text-dreamPink-500 px-2 py-0.5 rounded-full font-bold">Nhật ký thực hành</span>
+                        </div>
+
+                        <!-- Process Stages Carousel -->
+                        <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+                            <button onclick="selectT5Stage('gemini')" id="t5-stage-gemini" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500">Bước 1: Số liệu</button>
+                            <button onclick="selectT5Stage('dalle')" id="t5-stage-dalle" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Bước 2: Vẽ ảnh</button>
+                            <button onclick="selectT5Stage('canva')" id="t5-stage-canva" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Bước 3: Bố cục</button>
+                        </div>
+
+                        <!-- Stage Content area -->
+                        <div class="bg-pink-50/15 rounded-2xl p-4 border border-pink-100/30 text-xs min-h-[160px] space-y-2">
+                            <div id="t5-stage-title" class="font-bold text-gray-800">1. Google Gemini: Lên ý tưởng & Biên tập nội dung số</div>
+                            <div class="text-[11px] text-gray-400 italic mb-1">
+                                Prompt của mình: <span id="t5-stage-prompt">"Hãy đóng vai là một chuyên gia môi trường... Cung cấp cho tôi 5 số liệu từ nguồn uy tín dạng câu ngắn gọn (không quá 15 từ)..."</span>
+                            </div>
+                            <p id="t5-stage-desc" class="text-[11px] text-gray-500 leading-relaxed">
+                                Gemini đã nhanh chóng gợi ý cho mình những con số báo động thực tế (như 8 triệu tấn nhựa trôi ra biển hàng năm). Để an tâm nhất, mình đã tự tra cứu lại toàn bộ các con số này trên trang chủ WWF, đồng thời tự dịch và điều chỉnh lại câu cú tiếng Việt cho mượt mà, xúc động hơn.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-4 text-[10px] text-gray-400 flex items-center justify-between">
+                        <span>Font mình tự lựa chọn: Montserrat & League Spartan</span>
+                        <span class="font-bold text-dreamPink-500">8 TRIỆU TẤN / NĂM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BÀI 6 -->
+            <div class="grid md:grid-cols-12 gap-8 items-stretch">
+                <!-- Academic Integrity Manifesto & Essay Journal -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 border border-pink-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-1.5 text-xs">
+                                <i data-lucide="shield-check" class="text-dreamPink-400 w-4 h-4"></i>
+                                Cùng Mình Tìm Hiểu Về Đạo Đức Sử Dụng AI Có Trách Nhiệm
+                            </span>
+                            <span class="text-[10px] bg-pink-100 text-dreamPink-500 px-2 py-0.5 rounded-full font-bold">Kỷ luật học tập</span>
+                        </div>
+
+                        <!-- Sub-tabs: Comparison vs Manifesto -->
+                        <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+                            <button onclick="selectT6Details('vnu-hust')" id="t6-tab-vnu-hust" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500">Chính sách VNU vs HUST</button>
+                            <button onclick="selectT6Details('journal')" id="t6-tab-journal" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">Nhật ký Deep Work</button>
+                            <button onclick="selectT6Details('manifesto')" id="t6-tab-manifesto" class="p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50">6 Quy tắc cốt lõi</button>
+                        </div>
+
+                        <!-- Dynamic Content Box -->
+                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 text-xs min-h-[160px] space-y-2">
+                            <div id="t6-mode-title" class="font-bold text-gray-800">1. So sánh chi tiết chính sách quản lý Generative AI (VNU vs HUST)</div>
+                            <p id="t6-mode-desc" class="text-[11px] text-gray-500 leading-relaxed">
+                                <strong>Cách tiếp cận:</strong><br>
+                                - <strong>ĐHQGHN (VNU):</strong> Chú trọng quản lý năng lực của người học nói chung, kiểm soát chất lượng văn bản và ngăn ngừa đạo văn bằng Turnitin. Người học phải chịu trách nhiệm hoàn toàn đối với độ chính xác của tài liệu.<br>
+                                - <strong>Bách khoa (HUST):</strong> Hướng đến từng nhóm ngành kỹ thuật cụ thể, kiểm soát độ độc bản của mã nguồn (source code) và thuật toán tự sinh do sinh viên lập trình thông qua vấn đáp trực tiếp với hội đồng.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-4 text-[10px] text-gray-400 flex justify-between items-center">
+                        <span>Lý thuyết: Cognitive Load (Sweller 1988) & CPA (Linda Stone)</span>
+                        <span>Chuẩn trích dẫn APA 7th</span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex flex-col justify-between dreamy-glass p-8 rounded-3xl border-2 border-white/60 dreamy-card-hover">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-dreamPink-400 font-bold text-lg">06</div>
+                        <h3 class="text-xl font-bold text-gray-800">Bài 6 - Bài tập 4 của mục 6.4: Sử dụng AI có trách nhiệm trong học tập và nghiên cứu</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">
+                            <strong>Mục tiêu của mình:</strong> Tìm hiểu chính sách quản lý trí tuệ nhân tạo của các trường đại học lớn ở Việt Nam, ghi nhật ký thực hành viết bài luận học thuật về đề tài tập trung của Gen Z và thiết lập bộ nguyên tắc sử dụng AI của riêng mình.
+                        </p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            <strong>Bài học mình nhận ra:</strong> Sự thích ứng văn minh và có trách nhiệm đòi hỏi sinh viên phải giữ vững tư duy phản biện độc lập trong mọi kết quả nộp học trình.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-pink-100 mt-6 text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                        Kỹ năng: VNU vs HUST Analysis, Localization Process, AI Manifesto Integrity
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Overall Conclusion & Learnings Section -->
+    <section id="conclusion" class="max-w-4xl mx-auto px-4 py-16 text-center space-y-8 relative">
+        <div class="inline-flex items-center gap-2 bg-indigo-100/60 border border-indigo-200/50 text-indigo-500 px-4 py-1.5 rounded-full text-xs font-semibold">
+            <i data-lucide="book-open" class="w-4 h-4 text-indigo-400"></i>
+            Tâm sự cuối học trình
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold">Báo Cáo Tổng Kết Những Khó Khăn, Thuận Lợi & Bài Học</h2>
+        
+        <div class="dreamy-glass p-8 md:p-12 rounded-3xl border-2 border-white/80 shadow-lg text-left space-y-6 relative">
+            <div class="absolute -top-5 -left-5 w-10 h-10 text-dreamPink-300 glowing-star"><svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+            
+            <div class="grid md:grid-cols-2 gap-8 text-xs leading-relaxed">
+                <!-- Advantages -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-gray-800 text-sm flex items-center gap-2">
+                        <i data-lucide="smile" class="text-green-500 w-4.5 h-4.5"></i>
+                        Về Những Thuận Lợi
+                    </h4>
+                    <p class="text-gray-500">
+                        - Nội dung môn học được thiết kế gần gũi, thực hành trực quan nên một sinh viên chuyên ngành ngôn ngữ như mình hoàn toàn có thể nắm bắt nhịp độ học tập thoải mái.<br>
+                        - Sự hỗ trợ đa dạng của các công cụ AI hỗ trợ mình rất nhiều trong việc tham khảo ý tưởng ban đầu, sắp xếp bố cục bài viết nhanh chóng để dành nhiều thời gian hơn cho việc chau chuốt văn phong ngôn từ.
+                    </p>
+                </div>
+                <!-- Difficulties -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-gray-800 text-sm flex items-center gap-2">
+                        <i data-lucide="frown" class="text-orange-500 w-4.5 h-4.5"></i>
+                        Về Những Khó Khăn
+                    </h4>
+                    <p class="text-gray-500">
+                        - Thời gian đầu thiết lập câu lệnh (Prompt) chưa chuẩn xác nên kết quả AI đưa ra đôi khi còn rườm rà và rập khuôn, thỉnh thoảng xuất hiện lỗi ảo giác thông tin.<br>
+                        - Giao diện của công cụ cộng tác nhóm như Monday.com ban đầu tương đối phức tạp và hạn chế một số tính năng phân tích nâng cao đối với tài khoản dùng thử.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Major Learnings -->
+            <div class="border-t border-pink-100/40 pt-6 space-y-3 text-xs leading-relaxed">
+                <h4 class="font-bold text-gray-800 text-sm flex items-center gap-2">
+                    <i data-lucide="award" class="text-dreamPink-400 w-4.5 h-4.5"></i>
+                    Bài Học Cốt Lõi Về Sự Phát Triển Tư Duy Cá Nhân
+                </h4>
+                <p class="text-gray-500">
+                    Trải qua 6 bài tập thực hành lớn, quy trình làm việc của mình đã chuyển đổi từ những nét vẽ đơn điệu thô sơ sang **Vòng lặp tương tác (Iterative Loop)**. 
+                    Mình không còn đơn thuần là người trực tiếp gõ từng dòng chữ hay cắt từng đoạn video thô, mà đã chuyển sang vai trò **Biên tập viên kiêm Đạo diễn**. 
+                    Mình học được cách đặt câu hỏi thông minh để điều khiển AI, rà soát kiểm chứng kết quả nghiêm khắc để tránh ảo giác thông tin và tự tay căn chỉnh thủ công tỉ mỉ các chi tiết mỹ thuật. 
+                    Năng lực xử lý dữ liệu nhanh chóng của trí tuệ nhân tạo khi kết hợp cùng gu thẩm mỹ, óc phản biện độc lập và trái tim tràn đầy thấu cảm của con người mới thực sự tạo nên những giá trị học thuật hoàn mỹ nhất.
+                </p>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-pink-100">
+                <span class="font-cursive text-xl text-dreamPink-400">Ngọc Hà - ULIS-VNU</span>
+                <a href="https://drive.google.com/drive/folders/1vepdtcQ1eFhcEjAotrFq5qNEbuusf7Sz?usp=drive_link" target="_blank" class="bg-gradient-to-r from-dreamPink-400 to-pink-300 text-white font-semibold px-6 py-3 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-xs shadow-md">
+                    <i data-lucide="cloud-lightning" class="w-4 h-4"></i>
+                    Kho thư mục bài tập thô trên Google Drive
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-pink-100 py-12 mt-16 bg-white/20">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-400 font-medium">
+            <div class="flex items-center gap-2">
+                <span class="font-cursive text-xl text-dreamPink-400 font-bold">Ngọc Hà.</span>
+                <span>© 2026 Toàn bộ bản quyền thuộc về tác giả.</span>
+            </div>
+            <div class="flex gap-6">
+                <span>Nguyễn Ngọc Hà</span>
+                <span>MSSV: 25041617</span>
+                <span>Khoa Ngôn ngữ và Văn hóa Trung Quốc</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript Core Logic -->
+    <script>
+        // Init Lucide icons
+        lucide.createIcons();
+
+        // Canvas Sparkle Trail Cursor Animation
+        const canvas = document.getElementById('sparkle-canvas');
+        const ctx = canvas.getContext('2d');
+        let sparkles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Sparkle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 3;
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.speedY = Math.random() * -1 - 0.5;
+                this.color = `hsl(${Math.random() * 30 + 340}, 100%, 85%)`; // dreamy pink sparkle tone
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y - this.size);
+                ctx.lineTo(this.x + this.size * 0.3, this.y - this.size * 0.3);
+                ctx.lineTo(this.x + this.size, this.y);
+                ctx.lineTo(this.x + this.size * 0.3, this.y + this.size * 0.3);
+                ctx.lineTo(this.x, this.y + this.size);
+                ctx.lineTo(this.x - this.size * 0.3, this.y + this.size * 0.3);
+                ctx.lineTo(this.x - this.size, this.y);
+                ctx.lineTo(this.x - this.size * 0.3, this.y - this.size * 0.3);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.45) {
+                sparkles.push(new Sparkle(e.clientX, e.clientY));
+            }
+        });
+
+        function animateSparkles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = sparkles.length - 1; i >= 0; i--) {
+                sparkles[i].update();
+                if (sparkles[i].alpha <= 0) {
+                    sparkles.splice(i, 1);
+                } else {
+                    sparkles[i].draw();
+                }
+            }
+            requestAnimationFrame(animateSparkles);
+        }
+        animateSparkles();
+
+
+        // Tác vụ 1: Sơ đồ cây thư mục & 12 bước mô phỏng
+        let b1CurrentStep = 1;
+        const b1TotalSteps = 12;
+
+        const b1StepsData = {
+            1: {
+                text: "Bước 1: Mở File Explorer bằng phím tắt Windows + E hoặc nhấp chuột vào biểu tượng thư mục màu vàng trên thanh Taskbar nhanh chóng.",
+                treeHighlight: [],
+                treeShowSub: false,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-20",
+                treeSubFolderOpacity: "opacity-20",
+                gcText: "GhiChu.txt",
+                showGc: false,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="monitor" class="w-10 h-10 text-dreamPink-400 mx-auto animate-pulse"></i><p class="font-bold text-gray-800 text-[11px]">Màn hình máy tính</p><p class="text-[10px] text-gray-400">File Explorer sẵn sàng hoạt động</p>'
+            },
+            2: {
+                text: "Bước 2: Ở cột bên trái giao diện, nhấp chuột chọn This PC, sau đó nhấp đúp vào ổ đĩa D: để mở phân vùng không gian lưu trữ hệ thống.",
+                treeHighlight: [],
+                treeShowSub: false,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-20",
+                treeSubFolderOpacity: "opacity-20",
+                gcText: "GhiChu.txt",
+                showGc: false,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="hard-drive" class="w-10 h-10 text-dreamPink-400 mx-auto animate-bounce"></i><p class="font-bold text-gray-800 text-[11px]">This PC > Ổ đĩa D:</p><p class="text-[10px] text-gray-400">Đã đi vào không gian lưu trữ chính</p>'
+            },
+            3: {
+                text: "Bước 3: Nhấp chuột phải vào khoảng trống bất kỳ -> chọn New -> Folder. Tiến hành đặt tên cho thư mục mới là ThucHanh_NguyenNgocHa rồi nhấn Enter.",
+                treeHighlight: ["tree-folder-main"],
+                treeShowSub: false,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-20",
+                gcText: "GhiChu.txt",
+                showGc: false,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="folder-plus" class="w-10 h-10 text-dreamPink-400 mx-auto"></i><p class="font-bold text-gray-800 text-[11px]">[D:\\ThucHanh_NguyenNgocHa]</p><p class="text-[10px] text-gray-400">Tạo thành công thư mục thực hành cá nhân</p>'
+            },
+            4: {
+                text: "Bước 4: Nhấp đúp chuột vào thư mục ThucHanh_NguyenNgocHa vừa tạo để bắt đầu đi vào bên trong thư mục này.",
+                treeHighlight: ["tree-folder-main"],
+                treeShowSub: true,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-20",
+                gcText: "GhiChu.txt",
+                showGc: false,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="folder-open" class="w-10 h-10 text-dreamPink-400 mx-auto"></i><p class="font-bold text-gray-800 text-[11px]">Thư mục đang trống</p><p class="text-[10px] text-gray-400">Chuẩn bị khởi tạo tệp tin văn bản</p>'
+            },
+            5: {
+                text: "Bước 5: Nhấp chuột phải vào khoảng trống bên trong -> chọn New -> Text Document. Đặt tên tệp tin ban đầu là GhiChu.txt rồi nhấn Enter.",
+                treeHighlight: ["tree-file-gc"],
+                treeShowSub: true,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-20",
+                gcText: "GhiChu.txt",
+                showGc: true,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="file-plus-2" class="w-10 h-10 text-dreamPink-400 mx-auto animate-pulse"></i><p class="font-bold text-gray-800 text-[11px]">GhiChu.txt (0 KB)</p><p class="text-[10px] text-gray-400">Đã khởi tạo tệp tin ghi chú ban đầu</p>'
+            },
+            6: {
+                text: "Bước 6: Nhấp chuột phải vào tệp GhiChu.txt vừa tạo -> chọn Rename. Đổi tên tệp văn bản thành GhiChuQuanTrong.txt rồi nhấn Enter.",
+                treeHighlight: ["tree-file-gc"],
+                treeShowSub: true,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-20",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="edit-3" class="w-10 h-10 text-dreamPink-400 mx-auto"></i><p class="font-bold text-gray-800 text-[11px]">GhiChuQuanTrong.txt</p><p class="text-[10px] text-gray-400">Đã hoàn thành việc đổi tên tệp</p>'
+            },
+            7: {
+                text: "Bước 7: Nhấp chuột phải vào khoảng trống bất kỳ -> chọn New -> Folder. Đặt tên cho thư mục con mới này là TaiLieu rồi nhấn Enter.",
+                treeHighlight: ["tree-folder-sub"],
+                treeShowSub: true,
+                treeShowSubSub: false,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-100",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="folder" class="w-10 h-10 text-dreamPink-400 mx-auto"></i><p class="font-bold text-gray-800 text-[11px]">Đã xuất hiện thư mục con [TaiLieu]</p><p class="text-[10px] text-gray-400">Chuẩn bị chuyển dữ liệu phân vùng</p>'
+            },
+            8: {
+                text: "Bước 8: Nhấp chuột phải vào tệp GhiChuQuanTrong.txt -> chọn Copy (hoặc dùng phím tắt Ctrl + C). Nhấp đúp mở thư mục con TaiLieu -> nhấp chuột phải -> chọn Paste (Ctrl + V) để tạo bản sao lưu.",
+                treeHighlight: ["tree-file-gc-copy"],
+                treeShowSub: true,
+                treeShowSubSub: true,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-100",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: true,
+                showDc: false,
+                visual: '<div class="flex gap-3 justify-center items-center"><i data-lucide="file-text" class="w-6 h-6 text-gray-400"></i><i data-lucide="copy" class="w-5 h-5 text-dreamPink-400 animate-bounce"></i><i data-lucide="folder-open" class="w-8 h-8 text-dreamPink-400"></i></div><p class="font-bold text-gray-800 text-[11px]">TaiLieu\\GhiChuQuanTrong.txt</p><p class="text-[10px] text-gray-400">Bản sao của tệp đã được dán thành công</p>'
+            },
+            9: {
+                text: "Bước 9: Quay lại thư mục gốc ThucHanh_NguyenNgocHa. Nhấp chuột phải -> New -> Text Document -> đặt tên DiChuyen.txt. Nhấp chuột phải vào tệp mới -> chọn Cut (Ctrl + X). Đi vào thư mục TaiLieu -> Paste (Ctrl + V) để chuyển hẳn tệp.",
+                treeHighlight: ["tree-file-dc"],
+                treeShowSub: true,
+                treeShowSubSub: true,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-100",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: true,
+                showDc: true,
+                visual: '<div class="flex gap-3 justify-center items-center"><i data-lucide="file-check-2" class="w-6 h-6 text-gray-400"></i><i data-lucide="scissors" class="w-5 h-5 text-dreamPink-400 animate-pulse"></i><i data-lucide="folder" class="w-8 h-8 text-dreamPink-400"></i></div><p class="font-bold text-gray-800 text-[11px]">Tệp DiChuyen.txt đã di dời</p><p class="text-[10px] text-gray-400">Tệp gốc đã di chuyển hoàn toàn vào thư mục con</p>'
+            },
+            10: {
+                text: "Bước 10: Đi vào thư mục con TaiLieu, nhấp chuột phải vào tệp sao lưu GhiChuQuanTrong.txt -> chọn Delete (hoặc phím Delete) để chuyển tệp vào Thùng rác (Recycle Bin) tạm thời.",
+                treeHighlight: ["tree-file-gc-copy"],
+                treeShowSub: true,
+                treeShowSubSub: true,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-100",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: false,
+                showDc: true,
+                visual: '<i data-lucide="trash-2" class="w-10 h-10 text-dreamPink-400 mx-auto animate-bounce"></i><p class="font-bold text-gray-800 text-[11px]">Xóa GhiChuQuanTrong.txt</p><p class="text-[10px] text-gray-400">Tệp đã bị xóa và nằm tạm trong Thùng rác</p>'
+            },
+            11: {
+                text: "Bước 11: Nhấp chuột chọn tệp DiChuyen.txt, nhấn giữ tổ hợp phím Shift và nhấn phím Delete. Một cảnh báo hiện ra, nhấp chọn Yes để xóa tệp vĩnh viễn không qua thùng rác.",
+                treeHighlight: ["tree-file-dc"],
+                treeShowSub: true,
+                treeShowSubSub: true,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-100",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: false,
+                showDc: false,
+                visual: '<i data-lucide="alert-triangle" class="w-10 h-10 text-red-400 mx-auto animate-pulse"></i><p class="font-bold text-gray-800 text-[11px]">Xóa vĩnh viễn tệp DiChuyen.txt</p><p class="text-[10px] text-red-400">Cảnh báo: Tệp này không thể phục hồi!</p>'
+            },
+            12: {
+                text: "Bước 12: Quay lại màn hình chính Desktop, nhấp đúp biểu tượng Recycle Bin. Tìm tệp GhiChuQuanTrong.txt đã xóa -> nhấp chuột phải -> chọn Restore để khôi phục tệp về thư mục TaiLieu ban đầu.",
+                treeHighlight: ["tree-file-gc-copy"],
+                treeShowSub: true,
+                treeShowSubSub: true,
+                treeMainFolderOpacity: "opacity-100",
+                treeSubFolderOpacity: "opacity-100",
+                gcText: "GhiChuQuanTrong.txt",
+                showGc: true,
+                showGcCopy: true,
+                showDc: false,
+                visual: '<i data-lucide="rotate-ccw" class="w-10 h-10 text-green-400 mx-auto animate-bounce"></i><p class="font-bold text-gray-800 text-[11px]">Khôi phục thành công!</p><p class="text-[10px] text-gray-400">Tệp tin đã phục hồi về lại vị trí cũ</p>'
+            }
+        };
+
+        function stepB1(direction) {
+            b1CurrentStep += direction;
+            if (b1CurrentStep < 1) b1CurrentStep = 1;
+            if (b1CurrentStep > b1TotalSteps) b1CurrentStep = b1TotalSteps;
+
+            const data = b1StepsData[b1CurrentStep];
+            document.getElementById('b1-num').textContent = b1CurrentStep;
+            document.getElementById('b1-text').textContent = data.text;
+            document.getElementById('b1-indicator').textContent = `Bước ${b1CurrentStep} / 12`;
+            
+            document.getElementById('step-visual-display').innerHTML = data.visual;
+
+            const mainFolder = document.getElementById('tree-folder-main');
+            const subElements = document.getElementById('tree-sub-elements');
+            const subSubElements = document.getElementById('tree-sub-sub-elements');
+            const treeGcFile = document.getElementById('tree-file-gc');
+            const treeGcFileName = document.getElementById('tree-file-gc-name');
+            const treeSubFolder = document.getElementById('tree-folder-sub');
+            const treeGcFileCopy = document.getElementById('tree-file-gc-copy');
+            const treeDcFile = document.getElementById('tree-file-dc');
+
+            // Main folder opacity
+            mainFolder.className = `flex items-center gap-1 font-semibold transition-opacity duration-300 ${data.treeMainFolderOpacity}`;
+
+            // Show sub elements of root folder
+            if (data.treeShowSub) {
+                subElements.classList.remove('hidden');
+            } else {
+                subElements.classList.add('hidden');
+            }
+
+            // GhiChu file visibility & naming
+            if (data.showGc) {
+                treeGcFile.classList.remove('hidden');
+            } else {
+                treeGcFile.classList.add('hidden');
+            }
+            treeGcFileName.textContent = data.gcText;
+
+            // Sub folder (TaiLieu) opacity
+            treeSubFolder.className = `flex items-center gap-1 font-semibold transition-all duration-300 ${data.treeSubFolderOpacity}`;
+
+            // Sub-sub elements visibility
+            if (data.treeShowSubSub) {
+                subSubElements.classList.remove('hidden');
+            } else {
+                subSubElements.classList.add('hidden');
+            }
+
+            // Copy file visibility
+            if (data.showGcCopy) {
+                treeGcFileCopy.classList.remove('hidden');
+            } else {
+                treeGcFileCopy.classList.add('hidden');
+            }
+
+            // DiChuyen file visibility
+            if (data.showDc) {
+                treeDcFile.classList.remove('hidden');
+            } else {
+                treeDcFile.classList.add('hidden');
+            }
+
+            // Reset highlights
+            const allNodes = ["tree-folder-main", "tree-file-gc", "tree-folder-sub", "tree-file-gc-copy", "tree-file-dc"];
+            allNodes.forEach(node => {
+                document.getElementById(node).classList.remove('bg-pink-100', 'px-1.5', 'rounded-md', 'border', 'border-pink-200');
+            });
+
+            // Apply highlights
+            data.treeHighlight.forEach(node => {
+                document.getElementById(node).classList.add('bg-pink-100', 'px-1.5', 'rounded-md', 'border', 'border-pink-200');
+            });
+
+            lucide.createIcons();
+
+            // Button disabled states
+            document.getElementById('b1-prev-btn').disabled = (b1CurrentStep === 1);
+            document.getElementById('b1-next-btn').disabled = (b1CurrentStep === b1TotalSteps);
+
+            if (b1CurrentStep === 1) {
+                document.getElementById('b1-prev-btn').className = "text-xs font-bold text-gray-300 flex items-center gap-1 cursor-not-allowed";
+            } else {
+                document.getElementById('b1-prev-btn').className = "text-xs font-bold text-dreamPink-400 hover:text-dreamPink-500 flex items-center gap-1 cursor-pointer transition-colors";
+            }
+
+            if (b1CurrentStep === b1TotalSteps) {
+                document.getElementById('b1-next-btn').className = "text-xs font-bold text-gray-300 flex items-center gap-1 cursor-not-allowed";
+            } else {
+                document.getElementById('b1-next-btn').className = "text-xs font-bold text-dreamPink-400 hover:text-dreamPink-500 flex items-center gap-1 cursor-pointer transition-colors";
+            }
+        }
+
+
+        // Tác vụ 2: Academic Sources data
+        const docAssessmentData = {
+            1: {
+                title: "1. Sun, Z. et al. (2021). ChineseBERT",
+                author: "Nhóm nghiên cứu chuyên AI / arXiv",
+                method: "Thực nghiệm với mô hình học sâu",
+                citations: "Cao",
+                recency: "Mới (2021)",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Đây là một tài liệu rất đáng tin cậy. Nghiên cứu mang tính đột phá khi giải quyết bài toán ngữ nghĩa bằng cách tích hợp cả thông tin hình dáng chữ và phiên âm Hán ngữ vào máy tính."
+            },
+            2: {
+                title: "2. Devlin, J. et al. (2019). BERT",
+                author: "Nhóm nghiên cứu Google / Hội nghị NAACL",
+                method: "Thực nghiệm học sâu trên dữ liệu khổng lồ",
+                citations: "Cực kỳ cao (Nền tảng kỷ nguyên)",
+                recency: "Tương đối mới (2019)",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Độ tin cậy tối cao. Đây là nghiên cứu cột mốc khai sinh ra kỷ nguyên mô hình biến đổi hai chiều (Transformers) trong xử lý ngôn ngữ tự nhiên, là bệ phóng lý thuyết giúp đối chiếu cấu trúc ngữ pháp sang ngôn ngữ máy."
+            },
+            3: {
+                title: "3. Cui, Y. et al. (2021). Whole Word Masking for Chinese BERT",
+                author: "Nhóm nghiên cứu NLP chuyên sâu / ACL & arXiv",
+                method: "Thực nghiệm học sâu nâng cao",
+                citations: "Cao",
+                recency: "Mới (2021)",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Đáng tin cậy cao. Khắc phục thành công hạn chế phân tách từ vựng (Word Segmentation) bằng giải pháp che toàn bộ từ thay vì từng ký tự đơn lẻ khi huấn luyện mô hình BERT cho tiếng Trung."
+            },
+            4: {
+                title: "4. Xue, N. (2003). Chinese Word Segmentation as Character Tagging",
+                author: "Nhà nghiên cứu ngôn ngữ học hàng đầu / Tạp chí Computational Linguistics",
+                method: "Phân tích cấu trúc lý thuyết & Thực nghiệm thuật toán",
+                citations: "Rất cao (Kinh điển)",
+                recency: "Cũ nhưng có giá trị nền móng vững bền",
+                rating: "★★★★☆",
+                eval: "Đánh giá của mình: Mang tính chất cột mốc học thuật. Đặt nền móng chuyển hóa cấu tạo từ vựng tiếng Trung Hán ngữ thành bài toán dán nhãn ký tự nhị phân giúp máy tính nhận diện từ ghép chính xác."
+            },
+            5: {
+                title: "5. Meng, Y. et al. (2019). ERNIE",
+                author: "Nhóm nghiên cứu AI Baidu / arXiv",
+                method: "Thực nghiệm tích hợp tri thức xã hội",
+                citations: "Cao",
+                recency: "Mới (2019)",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Đáng tin cậy, ứng dụng công nghệ cao. Mô hình ERNIE cải thiện đáng kể năng lực xử lý cú pháp tiếng Trung nhờ nhúng trực tiếp các thực thể thực tiễn và tri thức bối cảnh vào quá trình tiền huấn luyện."
+            },
+            6: {
+                title: "6. Journal of Chinese Linguistics (JCL)",
+                author: "Nhiều học giả uy tín / Chinese University Press",
+                method: "Phản biện khoa học mù đôi (Peer-review)",
+                citations: "Rất cao",
+                recency: "Cập nhật liên tục",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Độ tin cậy tuyệt đối. Đây là tạp chí đầu ngành thế giới chuyên sâu về ngôn ngữ học Hán ngữ, nơi các lý thuyết ngữ âm, cú pháp học hiện đại được thẩm định nghiêm ngặt nhất."
+            },
+            7: {
+                title: "7. Studies in Chinese Linguistics (SCL)",
+                author: "Các nhà nghiên cứu quốc tế / De Gruyter",
+                method: "Phản biện khoa học nghiêm ngặt",
+                citations: "Cao",
+                recency: "Liên tục",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Độ tin cậy cao. Tập trung công bố các nghiên cứu lý thuyết ngữ pháp tiếng Trung đương đại dưới góc độ cấu trúc hệ thống và ngôn ngữ học tạo sinh."
+            },
+            8: {
+                title: "8. Tạp chí Zhongguo Yuwen",
+                author: "Các chuyên gia ngôn ngữ học hàng đầu / Viện KHXH Trung Quốc",
+                method: "Nghiên cứu học thuật lý luận",
+                citations: "Rất cao",
+                recency: "Liên tục",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Nguồn học thuật tối cao tại Trung Quốc đại lục. Toàn bộ hệ thống ngữ pháp Hán ngữ hiện đại và Hán ngữ cổ đại được quy chuẩn hóa từ các công bố danh giá của tạp chí này."
+            },
+            9: {
+                title: "9. Li, C.N. & Thompson, S.A. (1981). Mandarin Chinese Grammar",
+                author: "Charles Li & Sandra Thompson / University of California Press",
+                method: "Phân tích cấu trúc chức năng hệ thống",
+                citations: "Cực kỳ cao (Sách gối đầu giường)",
+                recency: "Kinh điển vượt thời gian",
+                rating: "★★★★★",
+                eval: "Đánh giá của mình: Độ tin cậy tuyệt đối. Cuốn sách là cẩm nang phân tích cấu trúc cú pháp tiếng Trung chuẩn mực nhất dưới lăng kính chức năng hệ thống ngôn ngữ, cực kỳ thích hợp cho người học nghiên cứu bản chất câu."
+            },
+            10: {
+                title: "10. Wikipedia - Chinese Language (Nguồn mở)",
+                author: "Cộng đồng biên tập viên internet tự do",
+                method: "Tổng hợp thông tin đại chúng",
+                citations: "Thấp",
+                recency: "Cập nhật hàng giờ",
+                rating: "★★☆☆☆",
+                eval: "Đánh giá của mình: Chỉ dùng để tham khảo ban đầu. Ưu điểm là cập nhật nhanh các định nghĩa đại cương nhưng không có quy trình phản biện khoa học, dễ bị thay đổi nội dung nên bắt buộc phải kiểm chứng lại bằng sách chuyên khảo của UC Press."
+            }
+        };
+
+        function assessDoc(id) {
+            const data = docAssessmentData[id];
+            document.getElementById('doc-title').textContent = data.title;
+            document.getElementById('doc-author').textContent = data.author;
+            document.getElementById('doc-method').textContent = data.method;
+            document.getElementById('doc-citations').textContent = data.citations;
+            document.getElementById('doc-recency').textContent = data.recency;
+            document.getElementById('doc-rating').textContent = data.rating;
+            document.getElementById('doc-eval').textContent = data.eval;
+
+            for (let i = 1; i <= 10; i++) {
+                const element = document.getElementById(`doc-btn-${i}`);
+                if (i === id) {
+                    element.className = "p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500";
+                } else {
+                    element.className = "p-1.5 rounded-lg border text-[10px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50";
+                }
+            }
+        }
+
+
+        // Tác vụ 3: Side-by-Side Prompt Comparison Data
+        const t3TasksCompareData = {
+            1: { // Summary
+                basicPrompt: `"Tóm tắt bài đọc sau đây về Mạng thần kinh nhân tạo: [Dán đoạn văn bản]"`,
+                basicResp: "Mạng thần kinh nhân tạo (ANN) là một mô hình toán học phỏng sinh học để xử lý thông tin tự động thông qua các lớp đầu vào, lớp ẩn và lớp đầu ra nhằm bắt chước cấu trúc não người. Các mạng phổ biến gồm MLP, CNN, RNN.",
+                advPrompt: `"Bạn là một giáo sư ngành Khoa học máy tính có khả năng cô đọng kiến thức xuất sắc. Hãy đọc đoạn văn bản sau về Mạng thần kinh nhân tạo và thực hiện tóm tắt theo các bước:\nBước 1: Xác định luận điểm chính và các thuật ngữ cốt lõi.\nBước 2: Trích xuất 3-4 luận cứ hỗ trợ.\nBước 3: Viết bản tóm tắt gồm: (1) Tổng quan 1 câu và (2) Điểm nhấn quan trọng."`,
+                advResp: "[BƯỚC 1: XÁC ĐỊNH]\n- Thuật ngữ: ANN, Trọng số, Backpropagation, Gradient Descent.\n\n[BƯỚC 2: TRÍCH XUẤT]\n- Khởi tạo neuron phỏng sinh học.\n- Thuật toán cập nhật trọng số giảm thiểu sai số.\n\n[BƯỚC 3: TÓM TẮT]\n(1) Tổng quan: ANN là nền tảng cốt lõi của Deep Learning giúp máy tính tự động hóa việc trích đặc trưng từ dữ liệu phức tạp.\n(2) Điểm nhấn: Cấu trúc lớp phi tuyến; Backpropagation là chìa khóa tự động sửa sai số."
+            },
+            2: { // Explaining Backpropagation
+                basicPrompt: `"Giải thích cách hoạt động của Lan truyền ngược (Backpropagation)."`,
+                basicResp: "Lan truyền ngược là thuật toán huấn luyện mạng thần kinh nhân tạo. Hoạt động bằng cách tính đạo hàm của hàm mất mát đối với các trọng số trong mạng rồi dùng Gradient Descent để cập nhật các trọng số nhằm giảm thiểu sai số đầu ra.",
+                advPrompt: `"Bạn là một chuyên gia AI giải thích các khái niệm kỹ thuật phức tạp cho người mới bắt đầu (Explain Like I'm 5). Xem ví dụ giải thích Overfitting: [Ví dụ học vẹt]... Hãy giải thích khái niệm 'Lan truyền ngược' theo phong cách tương tự. Cấu trúc gồm: 1. Câu chuyện ẩn dụ; 2. Giải thích kỹ thuật đơn giản; 3. Tại sao nó quan trọng."`,
+                advResp: "1. Ẩn dụ (Ném bóng rổ):\nBạn ném bóng lệch sang phải và quá cao. Bạn tự nhủ: 'Mình đã dùng lực tay phải mạnh quá'. Lần sau, bạn điều chỉnh lực nhẹ hơn và hướng sang trái một chút. Sau nhiều lần ném bóng sẽ chuẩn xác vào rổ.\n\n2. Kỹ thuật đơn giản:\nKhi AI đoán sai kết quả đầu ra, thuật toán Backpropagation đi ngược từ đầu sai lỗi quay về các lớp neuron ẩn bên trong để tính toán xem bộ phận nào chịu trách nhiệm chính gây sai số bằng toán học Đạo hàm (Gradient).\n\n3. Tại sao quan trọng:\nKhông có nó, AI sẽ mãi đoán mò. Nó là chiếc la bàn sửa sai liên tục cho máy tính."
+            },
+            3: { // JSON exam design
+                basicPrompt: `"Tạo câu hỏi trắc nghiệm về Mạng thần kinh nhân tạo."`,
+                basicResp: "ANN là viết tắt của từ gì?\nA. Artificial Neural Network\nB. Automated Network Node\nC. Algorithm Network\nĐáp án đúng: A.",
+                advPrompt: `"Bạn là chuyên gia khảo thí đại học. Hãy thiết kế bộ câu hỏi ôn tập gồm 3 câu trắc nghiệm (độ khó tăng dần từ Nhận biết, Thông hiểu đến Vận dụng) về 'Hàm kích hoạt' trong ANN. Định dạng đầu ra nghiêm ngặt theo cấu trúc JSON: [ { 'level': '...', 'question': '...', 'options': {'A': '...', 'B': '...'}, 'correct_answer': '...', 'explanation': '...' } ]"`,
+                advResp: "[\n  {\n    \"level\": \"Nhận biết\",\n    \"question\": \"Vai trò chính của hàm kích hoạt là gì?\",\n    \"options\": {\"A\": \"Lưu trữ dữ liệu\", \"B\": \"Tạo tính phi tuyến\", \"C\": \"Tăng kích thước đầu vào\"},\n    \"correct_answer\": \"B\",\n    \"explanation\": \"Giúp mạng xử lý các mối liên hệ phi tuyến phức tạp.\"\n  },\n  {\n    \"level\": \"Thông hiểu\",\n    \"question\": \"Tại sao dùng ReLU?\",\n    \"options\": {\"A\": \"Giới hạn 0-1\", \"B\": \"Tính toán đơn giản, chống triệt tiêu gradient\"},\n    \"correct_answer\": \"B\",\n    \"explanation\": \"Công thức f(x)=max(0,x) giúp tính toán cực nhanh.\"\n  }\n]"
+            }
+        };
+
+        function selectT3Task(id) {
+            const data = t3TasksCompareData[id];
+            document.getElementById('t3-basic-prompt').textContent = data.basicPrompt;
+            document.getElementById('t3-basic-response').textContent = data.basicResp;
+            document.getElementById('t3-adv-prompt').textContent = data.advPrompt;
+            document.getElementById('t3-adv-response').textContent = data.advResp;
+
+            for (let i = 1; i <= 3; i++) {
+                const element = document.getElementById(`t3-task-${i}`);
+                if (i === id) {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500";
+                } else {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50";
+                }
+            }
+        }
+
+
+        // Tác vụ 4: Online Team Collaboration Tools Detail Logic
+        const t4ToolsData = {
+            monday: {
+                title: "Monday.com - Trung tâm quản trị & điều phối tiến độ trực quan",
+                desc: "Được thiết lập làm 'bản doanh' cho Nhóm 3 môn Công nghệ số. Với chủ đề 'Thiết kế video Chỉnh sửa gen bằng AI', Monday.com giúp nhóm trực quan hóa sơ đồ phân công cụ thể: Phóng to slide mở đầu, Biên tập video thô, Lồng phụ đề và giọng thuyết minh. <br><br><strong>Hạn chế vận hành:</strong> Giao diện tương đối phức tạp đối với thành viên mới làm quen, một số tính năng biểu đồ gantt chuyên sâu bị khóa ở phiên bản Free."
+            },
+            gdocs: {
+                title: "Google Docs - Đồng biên tập kịch bản thuyết trình thời gian thực",
+                desc: "Đồng tác giả kịch bản thoại với các chủ đề nhánh như: 'Trí tuệ nhân tạo là gì?', 'Ứng dụng AI trong Biên phiên dịch'. Google Docs thể hiện ưu thế vượt trội khi cho phép 6 thành viên trong nhóm cùng chỉnh sửa văn phong, nhận xét phản hồi trực tiếp để tối ưu hóa kịch bản trong vài phút. <br><br><strong>Hạn chế:</strong> Phụ thuộc tuyệt đối vào kết nối mạng internet."
+            },
+            gdrive: {
+                title: "Google Drive - Đồng bộ tài nguyên & Quản lý thư viện số",
+                desc: "Thư mục lưu trữ đám mây của Nhóm 3 (NMCNS) ghi nhận sự đóng góp tài nguyên nén bao gồm các tệp tin video biên tập thô và bản hoàn chỉnh: <code>cuoiiiiiiiiiiiiii.mp4</code> (133.6 MB), <code>thuyete 1.mp4</code> (251.4 MB) và <code>thuyet trinh 2.mp4</code> (120.5 MB). <br><br><strong>Hạn chế:</strong> Nếu không quy hoạch phân vùng thư mục ngay từ đầu, không gian lưu trữ rất dễ bị lộn xộn, rơi vào quá tải."
+            },
+            gmeet: {
+                title: "Google Meet - Tổ chức thảo luận chiến lược ảo hiệu quả",
+                desc: "Tổ chức hai cuộc họp chiến lược tối quan trọng: <br>- <strong>Ngày 01/06/2026:</strong> Thảo luận thống nhất đề tài, phác thảo đề cương kịch bản thoại video.<br>- <strong>Ngày 14/06/2026:</strong> Rà soát sản phẩm video cuối cùng trước khi nộp báo cáo lớn. <br><br>Ghi nhận sự tham gia của 6 thành viên tích cực: Châu Hà, Ngọc Hà, Thảo Vy (Đạo diễn trình bày), Thu Hằng, Vũ Mai Ngọc."
+            }
+        };
+
+        function selectT4Tool(key) {
+            const data = t4ToolsData[key];
+            document.getElementById('t4-tool-title').innerHTML = `<i data-lucide="activity" class="w-4 h-4 text-dreamPink-400"></i> ${data.title}`;
+            document.getElementById('t4-tool-desc').innerHTML = data.desc;
+
+            lucide.createIcons();
+
+            const tools = ['monday', 'gdocs', 'gdrive', 'gmeet'];
+            tools.forEach(t => {
+                const element = document.getElementById(`t4-tool-${t}`);
+                if (t === key) {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500";
+                } else {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50";
+                }
+            });
+        }
+
+
+        // Tác vụ 5: Generative AI Multimedia Design Stages Logic
+        const t5StagesData = {
+            gemini: {
+                title: "Giai đoạn 1: Lên ý tưởng & Biên tập nội dung số cùng Google Gemini",
+                prompt: '"Hãy đóng vai là một chuyên gia môi trường... Cung cấp cho tôi 5 số liệu từ nguồn uy tín dạng câu ngắn gọn (không quá 15 từ)..."',
+                desc: "Gemini đã nhanh chóng gợi ý cho mình những con số báo động thực tế (như 8 triệu tấn nhựa trôi ra biển hàng năm). <br><br><strong>Chỉnh sửa thủ công:</strong> Mình đã tự đối chiếu chéo (fact-check) lại các con số này trên trang chủ WWF, đồng thời tự dịch và điều chỉnh lại câu cú tiếng Việt cho mượt mà, xúc động hơn."
+            },
+            dalle: {
+                title: "Giai đoạn 2: Sáng tạo chất liệu hình ảnh cùng DALL-E 3",
+                prompt: '"A powerful conceptual 2D vector illustration of a majestic whale swimming in the ocean, but its body transitionally turns into plastic bottles and trash. Split screen effect..."',
+                desc: "Bức hình DALL-E 3 sinh ra ban đầu có một số chi tiết nilon và vỏ chai nhựa bị biến dạng trông hơi kỳ cục trên nền màu trắng tinh. <br><br><strong>Sửa đổi thủ công:</strong> Để khắc phục, mình đã chủ động đưa tấm ảnh này vào phần mềm thiết kế chuyên dụng để tẩy sạch những phần lỗi, chỉ giữ lại vóc dáng sắc nét của chú cá voi trước khi đưa vào Canva."
+            },
+            canva: {
+                title: "Giai đoạn 3: Bố cục trực quan & Thiết kế cùng Canva AI",
+                prompt: '"Infographic về môi trường biển và rác thải nhựa, phong cách hiện đại, tối giản"',
+                desc: "Giao diện layout gợi ý mặc định bị lỗi font chữ tiếng Việt nghiêm trọng (đặc biệt là lỗi vỡ dấu hiển thị). <br><br><strong>Căn chỉnh của mình:</strong> Mình đã tự căn chỉnh thủ công toàn bộ khối văn bản, đổi phông chữ sang cặp Montserrat và League Spartan. Đồng thời phóng to tệp số liệu điểm nhấn '8 TRIỆU TẤN' để kích thích người đọc hành động vì môi trường."
+            }
+        };
+
+        function selectT5Stage(key) {
+            const data = t5StagesData[key];
+            document.getElementById('t5-stage-title').textContent = data.title;
+            document.getElementById('t5-stage-prompt').textContent = data.prompt;
+            document.getElementById('t5-stage-desc').innerHTML = data.desc;
+
+            const stages = ['gemini', 'dalle', 'canva'];
+            stages.forEach(s => {
+                const element = document.getElementById(`t5-stage-${s}`);
+                if (s === key) {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500";
+                } else {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50";
+                }
+            });
+        }
+
+
+        // Tác vụ 6: Academic AI Ethics & Manifesto Modes Logic
+        const t6DataOptions = {
+            compare: {
+                title: "1. So sánh chi tiết chính sách quản lý Generative AI (VNU vs HUST)",
+                desc: "<strong>Đại học Quốc gia Hà Nội (VNU):</strong> Quản lý khung năng lực tổng quát, kiểm soát đầu ra bằng quy định liêm chính học thuật chung để chống đạo văn. Sử dụng hệ thống Turnitin quét mức độ can thiệp của AI. Đề cao trách nhiệm giải trình của cá nhân đối với lỗi ảo giác (hallucination) của AI.<br><br><strong>Đại học Bách khoa Hà Nội (HUST):</strong> Chú trọng sâu vào kỹ thuật thực thi cho các khối ngành công nghệ. Kiểm tra chặt chẽ mã nguồn (source code) tự động sinh của AI và sử dụng các hội đồng đánh giá vấn đáp trực tiếp để xác định năng lực thực tế."
+            },
+            journal: {
+                title: "2. Nhật ký viết luận học thuật: Mạng xã hội & Deep Work của Gen Z",
+                desc: "<strong>Quy trình viết luận 3 bước nghiêm ngặt:</strong><br>- <strong>Bước 1 (Lọc cấu trúc):</strong> Chủ động loại bỏ các giải pháp vĩ mô không thực tế của AI để tập trung sâu vào kỹ năng 'kỷ luật số' cá nhân.<br>- <strong>Bước 2 (Xác thực học thuật):</strong> Khi AI đề cập lý thuyết Cognitive Load (John Sweller 1988), mình đã tự truy cập Google Scholar đọc trực tiếp bản gốc, viết lại định nghĩa bằng văn phong của mình.<br>- <strong>Bước 3 (Bản địa hóa dữ liệu):</strong> Tích hợp số liệu báo cáo Internet thực tế của người trẻ Việt Nam từ báo cáo uy tín của We Are Social để tăng tính thuyết phục thực tế cho lập luận."
+            },
+            manifesto: {
+                title: "3. Tuyên ngôn 6 nguyên tắc cốt lõi sử dụng AI có trách nhiệm",
+                desc: "1. <strong>Chủ thể tư duy:</strong> Tôi luôn là tác giả, kiểm soát và chịu trách nhiệm 100% về mọi thông tin, lập luận nộp cho giảng viên. AI không phải tác giả, nó chỉ là trợ lý hỗ trợ.<br>2. <strong>Động não trước:</strong> Luôn brainstorm tự lực 15 phút trước khi hỏi AI để không bị thuật toán dẫn dắt tư duy ban đầu.<br>3. <strong>Xác thực độc lập:</strong> Coi mọi câu trả lời của AI chỉ là giả thuyết, luôn kiểm chứng chéo với tài liệu chính thống.<br>4. <strong>Minh bạch tuyệt đối:</strong> Công khai rõ ràng vị trí và công cụ AI đã hỗ trợ tại mục Phụ lục.<br>5. <strong>Bảo mật thông tin:</strong> Tuyệt đối không upload thông tin cá nhân, tài liệu nội bộ chưa công bố của nhà trường lên AI công cộng.<br>6. <strong>Tập trung bản chất:</strong> Sử dụng AI để đào sâu kiến thức bằng câu hỏi 'Tại sao', không bao giờ xem AI là lối tắt để làm bài tập đối phó."
+            }
+        };
+
+        function selectT6Details(key) {
+            const data = t6DataOptions[key];
+            document.getElementById('t6-mode-title').innerHTML = data.title;
+            document.getElementById('t6-mode-desc').innerHTML = data.desc;
+
+            const modes = ['compare', 'journal', 'manifesto'];
+            modes.forEach(m => {
+                const element = document.getElementById(`t6-tab-${m}`);
+                if (m === key) {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-dreamPink-300 bg-dreamPink-50/50 text-dreamPink-500";
+                } else {
+                    element.className = "p-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer border-gray-200 text-gray-500 hover:bg-gray-50";
+                }
+            });
+        }
+
+        // Initialize state on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            stepB1(0); // init b1 explorer
+            assessDoc(1); // init doc evaluation
+            selectT3Task(1); // init t3 comparison
+            selectT4Tool('monday'); // init t4 tool
+            selectT5Stage('gemini'); // init t5 stages
+            selectT6Details('compare'); // init t6 academic policy
+        });
+    </script>
+</body>
+</html>
